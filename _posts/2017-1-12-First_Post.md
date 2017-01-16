@@ -4,21 +4,17 @@ title: Observations on MTA turnstile data (part 1)
 published: true
 ---
 
-The first week at Metis' Data Science Bootcamp, we're assigned to teams and tasked with using MTA data to help a fictional client place street teams at NYC subway stations. In this case, the client was a non-profit trying to get more women into the tech industry.
-
-As was evident fromt the final presentations, there are many ways to approach this problem, and my team took the relatively straight-forward method of matching high-traffic stations with technology clusters.
-
-What interested me most about this project were the quirks and anaomalies I observed in the MTA data. Though the assigment was fictional, the data is real, and these observations might help other Data Science students/practioners to make sense of it.
+The first week at Metis' Data Science Bootcamp, we're assigned to teams and tasked with using MTA data to help a fictional client place street teams at NYC subway stations. What interested me most about this project were the quirks and anomalies I observed in the MTA data. Though the assigment was fictional, the data is real, and these observations might help other Data Science students/practioners make sense of it.
 
 ### Where are they?
 
-A quick Google search of `MTA turnsile` will tell you the MTA turnstile data is hosted at http://web.mta.info/developers/turnstile.html. There you'll find files containing the cumulative entry/exit counts for every turnstile in the NYC subway system.
+A Google search of `MTA turnsile` will tell you the MTA turnstile data is hosted at http://web.mta.info/developers/turnstile.html. There you'll find files containing the cumulative entry/exit counts for every turnstile in the NYC subway system.
 
 Each file, named `turnstile_YYMMDD.txt`, contains seven days of data from Saturday thru Friday of the preceeding week (e.g., the file named `160903` contains the data for 2016-08-27 through 2017-09-02). The MTA website describes the file layout so I won't go into those details here.
 
 ### Downloading the files
 
-The files are about ~15MB each and take while to download, so one of the first things I did was write Python functions to automaically identify, download, and cache the files. I could have manually downloaded and kept track of the files, but that sort of grunge work is exactly what computers are for.
+The files are about ~15MB each and take while to download, so one of the first things I did was write Python functions to automatically identify, download, and cache the files. I could done this manually, but that sort of grunge work is what computers are for.
 
 This code identifies the files to download:
 
@@ -46,7 +42,7 @@ def get_turnstile_urls(count=-4, start=datetime.date.today()):
     dates = [dt_first + ONE_WEEK * i for i in range(count)]
     return [datetime.date.strftime(d, MTA_URL_FMT) for d in dates]
 ```
-And here's the code that uses these URLs to download and cache the files:
+And here's the code that uses the generated URLs to download and cache the files:
 
 ```python
 def load_data(urls):
